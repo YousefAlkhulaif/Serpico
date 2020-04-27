@@ -13,21 +13,13 @@
   "burpmap": false,
   "vulnmap": false,
   "finding_types": [
-    "Web Application",
-    "Business Logic",
-    "Network Services",
-    "Best Practice",
-    "Compliance",
-    "Database",
-    "Network Internal",
-    "Router Configuration",
-    "Social Engineering",
-    "Physical",
-    "Wireless",
-    "Network Security",
-    "System Security",
-    "Logging and Auditing",
-    "Imported"
+    "Patch Management",
+    "Configuration Management",
+    "Input Validation & representation",
+    "Session Management",
+    "Authenitcation & Authorization",
+    "Cryptography",
+    "Information Leakage"
   ],
   "finding_states": [
     "Draft",

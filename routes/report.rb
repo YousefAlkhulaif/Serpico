@@ -814,7 +814,7 @@ get '/report/:id/status' do
     #### END IMAGE INSERT CODE
 
     docx_modify(rand_file, docx, 'word/document.xml')
-
+    docx = docx.sub('NewLineHere','<w:br/>')
     send_file rand_file, type: 'docx', filename: 'status.docx'
 
   else
@@ -1498,7 +1498,7 @@ get '/report/:id/generate' do
   write_rels(rand_file, 'word/_rels/document.xml.rels', content_to_write)
   # Update hyperlinks
   docx = hyperlinks['xmlText']
-
+  docx = docx.gsub('NewLineHere','<w:br/>')
   docx_modify(rand_file, docx, 'word/document.xml')
 
   list_components.each do |name, xml|

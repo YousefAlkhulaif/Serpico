@@ -290,7 +290,7 @@ def meta_markup_unencode(findings_xml, report)
 
   # creates paragraphs
   findings_xml = findings_xml.gsub('&lt;paragraph&gt;', '<paragraph>')
-  findings_xml = findings_xml.gsub('&lt;/paragraph&gt;', '</paragraph>')
+  findings_xml = findings_xml.gsub('&lt;/paragraph&gt;', 'NewLineHere </paragraph>')
   # same for the bullets
   findings_xml = findings_xml.gsub('&lt;bullet&gt;', '<bullet>')
   findings_xml = findings_xml.gsub('&lt;/bullet&gt;', '</bullet>')
