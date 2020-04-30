@@ -18,7 +18,7 @@ server_options = {
 }
 
 if config_options['show_exceptions'].to_s.casecmp('false').zero? || !(config_options['show_exceptions'])
-  puts "|+| [#{DateTime.now.strftime('%d/%m/%Y %H:%M')}] Sending Webrick logging to /dev/null.."
+  puts "|+| [#{DateTime.now.strftime('%d/%m/%Y %H:%M')}] Sending Webrick logging to /dev/null..\n Local server is working! go to http://127.0.0.1:8080"
   server_options[:Logger] = WEBrick::Log.new(File.open(File::NULL, 'w'))
   server_options[:AccessLog] = []
 end
