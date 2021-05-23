@@ -212,6 +212,7 @@ class TemplateReports
   property :contact_zip, String
   property :full_company_name, String, required: true, length: 200
   property :short_company_name, String, required: true, length: 200
+  property :label, String, required: false, length: 200
   property :company_website, String
 end
 
@@ -353,7 +354,8 @@ class Reports
   property :authors, CommaSeparatedList, required: false, lazy: false
   property :user_defined_variables, String, length: 10_000
   property :scoring, String, length: 100
-
+  property :authors, String, required: false, length: 200
+  property :label, String, required: false, length: 200
   property :language, String, required: false
 end
 

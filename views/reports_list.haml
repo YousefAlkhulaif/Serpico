@@ -17,26 +17,33 @@
         %tr
           %th
             %input.checkbox#checkall{ :type => "checkbox" }
-          %th{ :style => "width: 65%" }
+          %th{ :style => "width: 50%" }
             Report Name
           %th{ :style => "width: 10%" }
             Customer
           %th{ :style => "width: 10%" }
             Owner
+          %th{ :style => "width: 10%" }
+            Label
           %th.text-right{ :style => "width: 15%" }
             Actions
+          
       %tbody
         - @reports.each do |report|
           %tr
-            %td.searchable{ :"data-index" => "#{report.report_name.downcase}" }
+            %td.searchable{ :"data-index" => "#{report.report_name.downcase}#{report.label.to_s.downcase}"}
               %input.checkbox{ :type => "checkbox", :name => "#{report.id}" }
-            %td.searchable{ :"data-index" => "#{report.report_name.downcase}" }
+            %td.searchable{ :"data-index" => "#{report.report_name.downcase}#{report.label.to_s.downcase}"}
               #{report.report_name}
-            %td.searchable{ :"data-index" => "#{report.report_name.downcase}" }
+            %td.searchable{ :"data-index" => "#{report.report_name.downcase}#{report.label.to_s.downcase}"}
               #{report.full_company_name}
-            %td.searchable{ :"data-index" => "#{report.report_name.downcase}" }
+            %td.searchable{ :"data-index" => "#{report.report_name.downcase}#{report.label.to_s.downcase}"}
               #{report.owner}
-            %td.searchable.text-right{ :"data-index" => "#{report.report_name.downcase}" }
+            %td.searchable{ :"data-index" => "#{report.report_name.downcase}#{report.label.to_s.downcase}"}
+              #{report.label}
+
+
+            %td.searchable.text-right{ :"data-index" => "#{report.report_name.downcase}#{report.label.to_s.downcase}" }
               - if @master
                 %a.btn.btn-sm.btn-warning{ :href => "/master/reports/#{finding.id}" }
                   %i.fas.fa-pencil-alt{ :title => "Edit" }
@@ -52,5 +59,7 @@
                 %a.btn.btn-sm.btn-dark{ :href => "/admin/add_user/#{report.id}" }
                   %i.fas.fa-user{ :title => "Add Author" }
 
+
 - else
   %h1.h4 You have no reports, how about <a href="/report/new">creating</a> or <a href="/report/import">importing</a> one...
+

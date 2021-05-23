@@ -816,7 +816,7 @@ get '/report/:id/status' do
     docx_modify(rand_file, docx, 'word/document.xml')
     docx = docx.sub('NewLineHere','<w:br/>')
     send_file rand_file, type: 'docx', filename: 'status.docx'
-
+    
   else
     "You don't have a Finding Template (did you delete the temp?) -_- ... If you're an admin go to <a href='/admin/templates/add'>here</a> to add one."
   end
@@ -1068,6 +1068,7 @@ get '/report/:id/findings/:finding_id/upload' do
   # Check model/master.rb to compare
   attr = {
     title: @finding.title,
+    indicatiorOfCompromise: @finding.indicatiorOfCompromise,
     damage: @finding.damage,
     reproducability: @finding.reproducability,
     exploitability: @finding.exploitability,
@@ -1498,9 +1499,29 @@ get '/report/:id/generate' do
   write_rels(rand_file, 'word/_rels/document.xml.rels', content_to_write)
   # Update hyperlinks
   docx = hyperlinks['xmlText']
+  # matchData = docx.match("<c:pt idx=\"0\"><c:v>[0-9]*")
+  # puts matchData[0]
   docx = docx.gsub('NewLineHere','<w:br/>')
   docx_modify(rand_file, docx, 'word/document.xml')
-
+  chartData =  read_rels(rand_file, 'word/charts/chart1.xml')
+  #puts chartData
+  matchData = chartData.match("<c:pt idx=\"0\"><c:v>[0-9]+")
+  udv_hash
+  tallies = udv_hash.map{|x| x[1]} 
+  # Edit charts data
+  5.times do |count|
+    matchData = chartData.match("<c:pt idx=\"#{count}\"><c:v>[0-9]+")
+    puts matchData.to_s
+    newElement = "<c:pt idx=\"#{count}\"><c:v>#{tallies[count]}"
+    puts newElement
+    chartData.sub(matchData.to_s, newElement.to_s)
+    matchData = chartData.match("<c:pt idx=\"#{count}\"><c:v>[0-9]+")
+    puts matchData.to_s
+    puts '#'
+  end
+  #puts '#######################################'
+  #puts chartData
+  docx_modify(rand_file, chartData, 'word/charts/chart1.xml')
   list_components.each do |name, xml|
     docx_modify(rand_file, xml.to_s, name)
   end
